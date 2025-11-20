@@ -3,18 +3,20 @@ import { prisma } from '@/lib/prisma';
 import MessageCard from '@/components/MessageCard';
 import { notFound } from 'next/navigation';
 
-interface CategoryPageProps {
-  params: { id: string };
-}
+export default async function CategoryDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-export default async function CategoryDetailsPage({ params }: CategoryPageProps) {
   const category = await prisma.category.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!category) notFound();
 
-  const messages = await getMessagesByCategory(params.id);
+  const messages = await getMessagesByCategory(id);
 
   return (
     <div className="space-y-6 p-4">
