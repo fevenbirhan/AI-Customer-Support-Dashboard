@@ -29,16 +29,23 @@ A beautiful analytics page that visualizes the number of messages received per c
 Frontend + Backend
 
 Next.js 15 (App Router, Server Actions)
+
 React 19
+
 Tailwind CSS
+
 Framer Motion (UI animations)
+
 Recharts (analytics charts)
+
 Lucide React (icons)
 
 Database & ORM
 
 Prisma 6
+
 Neon (Serverless PostgreSQL)
+
 pg PostgreSQL driver
 
 Authentication
@@ -54,6 +61,7 @@ Running the Project Locally
 1. Clone the repo
 
 git clone https://github.com/fevenbirhan/AI-Customer-Support-Dashboard.git
+
 cd ai-customer-support-dashboard
 
 2. Install dependencies
@@ -63,6 +71,7 @@ npm install
 3. Run Prisma
 
 npx prisma generate
+
 npx prisma migrate deploy
 
 4. Start the dev server
