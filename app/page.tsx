@@ -1,101 +1,91 @@
-import Image from "next/image";
+import { currentUser } from '@clerk/nextjs/server';
+import { prisma } from '@/lib/prisma';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
-export default function Home() {
+export default async function HomePage() {
+  const user = await currentUser();
+
+  if (user) {
+    const dbUser = await prisma.user.findUnique({ where: { clerkUserId: user.id } });
+    if (dbUser?.role === 'ADMIN') {
+      redirect('/dashboard');
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <section className="mt-20 px-6 text-center">
+      {/* HERO SECTION */}
+      <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+        Manage Customer Messages with <br />
+        <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+          AI-Powered Intelligence
+        </span>
+      </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8 text-lg">
+        Automatically categorize messages, generate smart replies, and gain insights —
+        all in one unified admin workspace.
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="flex justify-center gap-4 mb-16">
+        <Link
+          href="/sign-up"
+          className="px-6 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition shadow-md"
+        >
+          Get Started
+        </Link>
+        <Link
+          href="/sign-in"
+          className="px-6 py-3 border border-emerald-600 text-emerald-600 dark:text-emerald-400 rounded-xl hover:bg-emerald-50 dark:hover:bg-slate-800 transition"
+        >
+          Sign In
+        </Link>
+      </div>
+
+      {/* FEATURES SECTION */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
+        <div className="p-6 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition">
+          <h3 className="font-semibold text-xl mb-2">🎯 AI Categorization</h3>
+          <p className="text-sm text-muted-foreground">
+            Organize messages instantly into categories using advanced AI models.
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div className="p-6 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition">
+          <h3 className="font-semibold text-xl mb-2">💬 Smart Replies</h3>
+          <p className="text-sm text-muted-foreground">
+            Generate editable AI-suggested responses to speed up support.
+          </p>
+        </div>
+        <div className="p-6 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition">
+          <h3 className="font-semibold text-xl mb-2">📊 Insights Dashboard</h3>
+          <p className="text-sm text-muted-foreground">
+            Understand message volume, trends, and performance at a glance.
+          </p>
+        </div>
+      </div>
+
+      {/* CTA SECTION */}
+      <div className="max-w-3xl mx-auto text-center p-10 bg-card border border-border rounded-2xl shadow-lg">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+          Ready to streamline your customer support?
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Start using AI to save time, improve accuracy, and enhance customer experience.
+        </p>
+        <Link
+          href="/sign-up"
+          className="px-6 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition shadow-md"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Create Your Free Account
+        </Link>
+      </div>
+
+      {/* --- FOOTER --- */}
+      <footer className="mt-20 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+        © {new Date().getFullYear()} AI Customer Support Dashboard — All rights reserved.
       </footer>
-    </div>
+    </section>
   );
 }

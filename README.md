@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI Customer Support Dashboard
 
-## Getting Started
+An AI-powered dashboard designed for companies to manage, categorize, and respond to customer messages efficiently.
 
-First, run the development server:
+✨ Features
 
-```bash
+🧠 AI Categorization
+
+Upload customer messages (feedback, complaints, feature requests, praise, etc.) and let the AI automatically sort them into predefined categories.
+
+💬 AI Reply Suggestions
+
+For each individual message, you can ask the AI to generate a smart reply that you can edit or send back to the customer.
+
+🗂️ Category-Based Message View
+
+View all messages grouped by category for easy navigation.
+
+🗑️ Auto-Delete After 30 Days
+
+Messages are automatically removed after 30 days to keep the database clean.
+
+📊 30-Day Analytics Dashboard
+
+A beautiful analytics page that visualizes the number of messages received per category in the last 30 days — helping companies see trends over time.
+
+🛠 Tech Stack
+
+Frontend + Backend
+
+Next.js 15 (App Router, Server Actions)
+React 19
+Tailwind CSS
+Framer Motion (UI animations)
+Recharts (analytics charts)
+Lucide React (icons)
+
+Database & ORM
+
+Prisma 6
+Neon (Serverless PostgreSQL)
+pg PostgreSQL driver
+
+Authentication
+
+Clerk
+
+AI
+
+OpenRouter API (OpenAI-compatible)
+
+Running the Project Locally
+
+1. Clone the repo
+
+git clone https://github.com/fevenbirhan/AI-Customer-Support-Dashboard.git
+cd ai-customer-support-dashboard
+
+2. Install dependencies
+
+npm install
+
+3. Run Prisma
+
+npx prisma generate
+npx prisma migrate deploy
+
+4. Start the dev server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
